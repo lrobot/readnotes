@@ -1,0 +1,16 @@
+```
+执行
+python3 -B readnotes.py  --user liubing --input "$HOME/Library/Group Containers/group.com.apple.notes/NoteStore.sqlite" --output ~/notes_macos
+
+
+
+然后打开 sqlite
+
+SELECT CAST
+	( Data AS TEXT )
+FROM
+	Notes
+
+
+就能看到具体的Note记录
+```

@@ -1,0 +1,97 @@
+
+
+Mac OS系统信息
+
+Mac系统的基本信息主要包括产品名称、当前版本、版本序列号、产品版权、完整计算机名、主机名、安装时间和后登录用户，这些信息分别存放在\System\Library\CoreServices\SystemVersion.plist、\Library\Preferences\SystemConfiguration\preferences.plist和\Library\Preferences\com.apple.loginwindow.plist，这些文件都是plist格式。
+
+除了这些基本的系统信息，取证大师还获取了系统用户信息、网络配置、时区信息、开关机信息和系统安装记录。
+
+系统用户数据存放在\private\var\db\dslocal\nodes\Default\users目录下，该目录下一个文件对应存放一个系统用户的信息，这些文件均为plist格式。通过解析这些文件，可以获取到用户的帐户名称、创建时间、描述和密码哈希值。
+
+网络配置数据存放在\Library\Preferences\SystemConfiguration\preferences.plist，该文件是plist格式。通过解析该文件，可以获取到网络的IP地址、DNS服务器地址、物理地址等等。
+
+时区信息存放在\Library\Preferences\.GlobalPreferences.plist，通过解析这个文件，取证大师可以获取到当前系统所在地以及当前系统所在时区。
+
+系统安装记录\10.10\Library\Receipts\InstallHistory.plist，通过解析这个文件，可以获取到系统安装记录的系统名称、版本和安装时间。
+
+开关机数据存放在\private\var\log目录下的system.log、system.log.0.gz文件中，这些文件是系统日志文件。通过解析这些文件，可以获取到开关机记录的用户名和时间。
+
+
+
+蓝牙
+
+蓝牙功能可让手机、无线耳机、电脑、相关外设等众多设备之间进行短距离无线连接、实现数据交换。Mac系统下可通过“系统偏好设置”的“蓝牙”面板来连接其他蓝牙设备。
+
+Mac OS系统的蓝牙数据存放在\Library\Preferences\com.apple.Bluetooth.plist，该文件是plist格式，记录了所有请求和被请求过连接的设备的信息。通过解析该文件，取证大师可获取到设备的地址、名称、后名称更新时间、后查询更新时间、后服务更新时间以及配对情况。
+
+
+
+无线网络
+
+无线网络，顾名思义就是能让用户不用使用网线便能连接入网。Mac系统下可通过“系统偏好设置”的“网络”面板上的“Wi-fi”连接无线网络。
+
+Mac OS系统下，无线网络连接数据存放在\Library\Preferences\SystemConfiguration文件夹下的com.apple.airport.preferences.plist文件，该文件是plist格式，记录了所有保存的无线网络信息。通过解析该文件，取证大师可获取到无线网络的名称、安全性及后连接时间。
+
+
+
+打印功能
+
+打印功能能把电脑中的文字或图片等可见数据通过打印机等输出在纸张等记录物上。在Mac OS系统下，打开要打印的文件，在上方的状态栏点击“文件”》“打印”，即可进行打印。
+
+打印数据存放在\private\var\spool\cups目录下，该目录下以c开头的文件“cXXXXX”存放着打印信息，一个文件对应一个打印任务，每个c开头的文件都有对应的d开头文件“dXXXXX-XXX”，d开头的文件是打印预览，但是打印完成时d开头的文件会被删除。
+
+通过解析“cXXXXX”文件，取证大师可以获取到打印文件名、任务创建时间、完成时间、打印份数、打印机URL、打印机ID等有用信息。
+
+
+
+终端
+
+Mac OS系统拥有自己的终端——Termiinal，它相当于Windows下的命令提示符，Linux下的指令集、shell命令行。Mac终端通过打开“Finder”—“实用工具”—“终端”，即可打开。
+
+终端数据存储在\Users\[UserName]目录下的 .bash_history文件中，该文件使用UTF-8编码存储。通过解析该文件，取证大师可以获取到每一条执行过的命令内容。
+
+
+
+内置地图
+
+Mac OS内置地图与大多数地图软件的功能差不多，用户可以输入目的地址查询地理位置，也可以输入起始位置和目的地址查询路线。
+
+地图数据存放在Users\UserName\Library\Containers\com.apple.Maps\Data\Library\Maps目录下，GeoHistory.mapsdata文件存放搜索记录，GeoBookmarks.plist文件存放收藏记录，这两个文件均为plist格式。
+
+通过解析GeoHistory.mapsdata文件，取证大师可获取到位置搜索记录和路线搜索记录。位置搜索记录包含位置名称、地区、经纬度，路线搜索记录包含起点位置、起点位置的经纬度、终点位置、终点位置的经纬度。
+
+通过解析GeoBookmarks.plist文件，取证大师可获取到收藏位置和收藏路线。收藏位置包含位置名称、地区、经纬度，收藏路线包含起点位置、起点位置的经纬度、终点位置、终点位置的经纬度。
+
+
+
+内置备忘录
+
+Mac OS内置备忘录除了可以记录文字内容，还可以添加文本文件、音视频文件等媒体文件，其大的优点是可以同步到icloud，实现与ipad、iphone之间的同步。Mac OS 10.11之后的备忘录还可以对指定备忘录进行加密处理，让备忘录应用可以得到更有效的保护。
+
+Mac OS X 10.10及更早的系统中，备忘录数据存放在\Users\[UserName]\Library\Containers\com.appLe.Notes\Data\Library\Notes目录下的NotesV1.storedata（Mac10.8）、NotesV2.storedata（Mac10.9）或NotesV3.storedata（Mac10.9），这三种解析文件是sqlite数据库文件，且数据库结构相似。而Mac10.11及Mac10.12的备忘录数据存放在\Users\[UserName]\Library\Group Containers\Group.com.apple.notes\NoteStore.sqlite，该文件也是sqlite数据库文件。
+
+Mac10.10之前，备忘录信息及内容存储在表ZNOTE和表ZNOTEBODY中，备忘录的内容是明文存储的；Mac10.11之后，备忘录信息及内容存储在表ZICCLOUDSYNGOBJECT和表ZICNOTEDATA中，备忘录的内容进行了加密。
+
+Mac10.10之前，附件存储在\Users\[UserName]\Library\Containers\com.apple.Notes\Data\Library\CoreData\Attachments目录下，附件信息存储在NotesV3.storedata数据库文件中的表ZATTACHMENT；Mac10.11之后，附件存储在\Users\[UserName]\Library\Group Containers\Group.com.appLe.notes\Media目录下，附件信息存储在NoteStore.sqlite数据库文件中的表ZICCLOUDSYNGOBJECT。
+
+通过这些数据库表与表之间的某种关系，取证大师可以获取到备忘录的名称、内容、创建时间、修改时间以及附件信息（包含附件名称、类型以及路径）。
+
+
+
+iCal日程
+
+Mac自带的日历程序有一个很好用的功能——日程管理。用户能够在日历程序上新建日程并对日程进行管理，还可以登录iCloud帐号同步日程信息，实现设备之间的日程共享。
+
+iCal日程数据存放在\Users\UserName\Library\Calendars\目录下的Calendar Cache文件，该文件是sqlite数据库文件。表ZNODE是日程类型表，表ZCALENDARITEM是事件信息表，然而被邀请人和位置信息没有存放在事件信息表中，而是分别存放在表ZATTENDEE和表ZLOCATION。
+
+通过解析Calendar Cache文件，取证大师可以获取到日程的事项名、位置、被邀请人、URL、注释、开始时间、结束时间、创建时间和修改时间。
+
+
+
+Mac通话及短信功能
+
+苹果在2014年WWDC大会上发布了Mac OS10.10与iOS8系统，这一次苹果把这两套系统融合在一起——Mac电脑上实现通话和短信功能。在Mac电脑升级到Mac OS Yosemite 以上的系统且手机升级到ios8以上的系统的前提下，两个设备登录同一个Apple ID，便可以在Mac电脑上进行通话和发短信。
+
+通话数据存放在\user\[username]\Library\Applicationupport\CallHistoryDB目录下的CallHistory.storedata文件，而短信数据存放\user\[username]\Library\Messages目录下的chat.db文件，这两个文件是sqlite数据库文件。
+
+通过解析这两个记录，短信记录能够发送号码、接收号码、内容、时间、阅读时间，而通话记录能够获取到拨打时间、持续时间、国家代码、地址。其中通话记录的号码进行了加密处理，这一技术点待后续突破。
